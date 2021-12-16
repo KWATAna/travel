@@ -32,6 +32,22 @@ let Calls = {
     let commandUri = Calls.getCommandUri("sys/uuAppWorkspace/get");
     return Calls.call("get", commandUri, {});
   },
+  tripsList() {
+    let commandUri = Calls.getCommandUri("trip/list");
+    return Calls.call("get", commandUri, {});
+  },
+  tripLoad(dtoIn) {
+    let commandUri = Calls.getCommandUri("trip/get");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+  participantList(dtoIn) {
+    let commandUri = Calls.getCommandUri("participant/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+  participantDelete(dtoIn) {
+    let commandUri = Calls.getCommandUri("participant/delete");
+    return Calls.call("post", commandUri, dtoIn);
+  },
 
   async initAndGetWorkspace(dtoInData) {
     await Calls.initWorkspace(dtoInData);

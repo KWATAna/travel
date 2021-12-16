@@ -13,7 +13,8 @@ const participantUpdateDtoInType = shape({
     dateOfBirth: date(),
     passNum: string(),
     passExpiry: date(),
-    telNumber: string(255)
+    telNumber: string(255),
+    tripIdList: array(id())
   })
 
   const participantListDtoInType = shape({

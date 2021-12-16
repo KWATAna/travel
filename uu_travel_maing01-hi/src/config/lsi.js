@@ -13,6 +13,14 @@ const Lsi = {
       cs: "O aplikaci",
       en: "About Application",
     },
+    trips: {
+      cs: "TRIPS LIST",
+      en: "TRIPS LIST",
+    },
+    trip: {
+      cs: "TRIPS CONTROLS",
+      en: "TRIPS CONTROLS",
+    },
   },
 
   about: {

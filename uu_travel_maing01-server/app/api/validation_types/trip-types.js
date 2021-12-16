@@ -30,3 +30,11 @@ const tripCreateDtoInType = shape({
     participantIdList: array(id(), 100),
     startingDate: date()   
   })
+  const tripListDtoInType = shape({
+    name: string(255),
+    capacity: integer(100),
+    price: number(10000),
+    locationId: id(),
+    participantIdList: array(id(), 100),
+    startingDate: date()   
+  })

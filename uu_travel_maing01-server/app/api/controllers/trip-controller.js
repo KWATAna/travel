@@ -3,6 +3,10 @@ const TripAbl = require("../../abl/trip-abl.js");
 
 class TripController {
 
+  list(ucEnv) {
+    return TripAbl.list(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   update(ucEnv) {
     return TripAbl.update(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

@@ -9,6 +9,8 @@ import Config from "./config/config";
 import Left from "./left";
 import Bottom from "./bottom";
 import Home from "../routes/home";
+import Trips from "../routes/trips";
+import Trip from "../routes/trip";
 //@@viewOff:imports
 
 const STATICS = {
@@ -21,11 +23,13 @@ const About = UU5.Common.Component.lazy(() => import("../routes/about"));
 const InitAppWorkspace = UU5.Common.Component.lazy(() => import("../routes/init-app-workspace"));
 const ControlPanel = UU5.Common.Component.lazy(() => import("../routes/control-panel"));
 
-const DEFAULT_USE_CASE = "home";
+const DEFAULT_USE_CASE = "trips";
 const ROUTES = {
   "": DEFAULT_USE_CASE,
   home: { component: <Home /> },
   about: { component: <About /> },
+  trips: { component: <Trips /> },
+  trip: { component: <Trip /> },
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },
 };

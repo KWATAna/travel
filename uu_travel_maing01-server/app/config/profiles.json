@@ -80,6 +80,10 @@
       "location/list": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "trip/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

@@ -207,7 +207,13 @@ const Update = {
   },
 };
 
+const List = {
+  UC_CODE: `${TRIP_ERROR_PREFIX}list/`,
+  
+};
+
 module.exports = {
+  List,
   Update,
   SetState,
   Delete,

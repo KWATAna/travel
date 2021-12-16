@@ -33,6 +33,10 @@ class TripMongo extends UuObjectDao {
     };
     return await super.deleteOne(filter);
   }
+
+  async list(filter, pageInfo = {}) {
+    return await super.find(filter, pageInfo);
+  }
 }
 
 module.exports = TripMongo;

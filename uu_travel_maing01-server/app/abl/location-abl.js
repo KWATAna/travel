@@ -41,7 +41,7 @@ class LocationAbl {
     // dtoIn.sort = { [dtoIn.sortBy]: dtoIn.order == "asc" ? 1 : -1 };
     //
     // let sort = {"name":1}
-    let uuReturn = await this.locationDao.list({ ...dtoIn, awid }, dtoIn.pageInfo, { category: -1 });
+    let uuReturn = await this.locationDao.list({ ...dtoIn, awid });
 
     return {
       uuReturn,

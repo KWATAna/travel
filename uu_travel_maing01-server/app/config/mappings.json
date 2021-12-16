@@ -95,6 +95,11 @@
         "realization": "api/controllers/LocationController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "trip/list": {
+        "realization": "api/controllers/TripController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

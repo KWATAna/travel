@@ -23,6 +23,37 @@ class TripAbl {
     this.participantDao = DaoFactory.getDao("participant");
   }
 
+  async list(awid, dtoIn, uuAppErrorMap = {}) {
+    const uuTravelMain = await this.mainDao.getByAwid(awid);
+
+    if (!uuTravelMain) {
+      throw new Errors.Update.uuTravelAppDoesNotExist({ uuAppErrorMap }, { awid });
+    }
+
+    if (uuTravelMain.state !== "active") {
+      throw new Errors.Update.uuTravelAppIsNotInCorrectState(
+        { uuAppErrorMap },
+        { expectedState: "active", awid, currentState: uuTravelMain.state }
+      );
+    }
+
+    let validationResult = this.validator.validate("tripListDtoInType", dtoIn);
+    uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.unsupportedKeys.code,
+      Errors.Update.InvalidDtoIn
+    );
+    const { pageInfo, ...restDtoIn } = dtoIn;
+    let filter = { ...restDtoIn, awid };
+    const uuParticipantList = await this.tripDao.list(filter, pageInfo);
+
+    return {
+      ...uuParticipantList,
+      uuAppErrorMap,
+    };
+  }
+
   async update(awid, dtoIn, uuAppErrorMap = {}) {
     const uuTravelMain = await this.mainDao.getByAwid(awid);
 
@@ -160,7 +191,7 @@ class TripAbl {
       dtoIn,
       validationResult,
       WARNINGS.unsupportedKeys.code,
-      Errors.Create.InvalidDtoIn
+      Errors.Get.InvalidDtoIn
     );
 
     // HDS 3

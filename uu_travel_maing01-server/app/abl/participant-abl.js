@@ -44,7 +44,6 @@ class ParticipantAbl {
     if (!uuParticipant) {
       throw new Errors.Update.uuTravelAppDoesNotExist({ uuAppErrorMap }, { id: dtoIn.id });
     }
-    console.log(uuParticipant);
     if (uuParticipant.state !== "active") {
       throw new Errors.Update.ParticipantIsNotInCorrectState(
         { uuAppErrorMap },
