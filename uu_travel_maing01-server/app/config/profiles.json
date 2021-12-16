@@ -1,0 +1,86 @@
+{
+  "{asid}": {
+    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public"],
+    "useCaseMap": {}
+  },
+  "*": {
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public"],
+    "useCaseMap": {
+      "sys/uuAppWorkspace/init": {
+        "sysStateList": ["created"],
+        "profileList": ["AwidLicenseOwner"]
+      },
+      "defaultUve": {
+        "profileList": ["Public"]
+      },
+      "sys/uuAppWorkspace/initUve": {
+        "sysStateList": ["created"],
+        "profileList": ["Public","AwidLicenseOwner"]
+      },
+      "location/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "location/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "location/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "location/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "location/setState": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "participant/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "participant/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "participant/setState": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "participant/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "participant/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "trip/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "trip/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "trip/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "trip/setState": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "trip/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "location/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      }
+    }
+  }
+}

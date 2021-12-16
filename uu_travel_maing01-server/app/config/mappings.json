@@ -1,0 +1,101 @@
+{
+  "{vendor}-{uuApp}-{uuSubApp}": {
+    "useCaseMap": {
+      "sys/uuAppWorkspace/init": {
+        "realization": "api/controllers/TravelMainController.init",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "defaultUve": {
+        "realization": "index.html",
+        "httpMethod": "GET",
+        "type": "UVE"
+      },
+      "sys/uuAppWorkspace/initUve": {
+        "realization": "index.html",
+        "httpMethod": "GET",
+        "type": "UVE"
+      },
+      "location/create": {
+        "realization": "api/controllers/LocationController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "location/get": {
+        "realization": "api/controllers/LocationController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "location/update": {
+        "realization": "api/controllers/LocationController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "location/delete": {
+        "realization": "api/controllers/LocationController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "location/setState": {
+        "realization": "api/controllers/LocationController.setState",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "participant/create": {
+        "realization": "api/controllers/ParticipantController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "participant/get": {
+        "realization": "api/controllers/ParticipantController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "participant/setState": {
+        "realization": "api/controllers/ParticipantController.setState",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "participant/list": {
+        "realization": "api/controllers/ParticipantController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "participant/update": {
+        "realization": "api/controllers/ParticipantController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "trip/create": {
+        "realization": "api/controllers/TripController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "trip/get": {
+        "realization": "api/controllers/TripController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "trip/delete": {
+        "realization": "api/controllers/TripController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "trip/setState": {
+        "realization": "api/controllers/TripController.setState",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "trip/update": {
+        "realization": "api/controllers/TripController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "location/list": {
+        "realization": "api/controllers/LocationController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      }
+    }
+  }
+}
