@@ -25,12 +25,15 @@ export const ParticipantLoader = createComponent({
   render(props) {
     const dataItemResult = useDataList({
       initialDtoIn: {
-        tripIdList: [`${props.params}`],
+        tripId: `${props.params}`,
       },
       handlerMap: {
         load: Calls.participantList,
       },
-      itemHandlerMap: {},
+      itemHandlerMap: {
+        delete: Calls.participantDelete,
+        update: Calls.participantUpdate,
+      },
     });
     return <TripContext.Provider value={dataItemResult}>{props.children}</TripContext.Provider>;
   },

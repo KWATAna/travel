@@ -3,7 +3,7 @@ const participantCreateDtoInType = shape({
   name: uu5String(255).isRequired(),
   dateOfBirth: date().isRequired(),
   passNum: uu5String().isRequired(),
-  tripIdList: array(id()),
+  tripId: id(),
   passExpiry: date().isRequired(),
   telNumber: string(255).isRequired()
 })
@@ -14,13 +14,13 @@ const participantUpdateDtoInType = shape({
     passNum: string(),
     passExpiry: date(),
     telNumber: string(255),
-    tripIdList: array(id())
+    tripId: id()
   })
 
   const participantListDtoInType = shape({
     sortBy: oneOf(["name", "trip"]),
     order: oneOf(["asc", "desc"]),
-    tripIdList: array(id()),
+    tripId: id(),
     state: oneOf(["active", "inactive"]),
     pageInfo: shape({
       pageIndex: integer(),

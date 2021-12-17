@@ -29,7 +29,7 @@ export const TripParticipants = createVisualComponent({
 
   render(props) {
     const { data } = useTripParticipant();
-    // @@viewOn:hooks
+    //@@viewOn:hooks
     //@@viewOff:hooks
     //@@viewOn:private
 
@@ -37,16 +37,14 @@ export const TripParticipants = createVisualComponent({
 
     //@@viewOn:interface
     //@@viewOff:interface
-
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
-
     return currentNestingLevel ? (
-      <Uu5Tiles.ControllerProvider data={data}>
+      <Uu5Tiles.DataController data={data}>
         <Uu5Tiles.Grid tileSpacing={8} rowSpacing={2} tileMaxWidth={400}>
           <ParticipantCard />
         </Uu5Tiles.Grid>
-      </Uu5Tiles.ControllerProvider>
+      </Uu5Tiles.DataController>
     ) : null;
     //@@viewOff:render
   },

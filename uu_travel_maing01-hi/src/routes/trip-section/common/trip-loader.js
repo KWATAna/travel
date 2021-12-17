@@ -32,7 +32,7 @@ export const TripLoader = createComponent({
       },
       itemHandlerMap: {},
     });
-    console.log({dataItemResult})
+    console.log({ dataItemResult });
     return <TripContext.Provider value={dataItemResult}>{props.children}</TripContext.Provider>;
   },
   //@@viewOff:render

@@ -45,6 +45,8 @@ export const TripsBlock = createVisualComponent({
           <UU5.Bricks.Text content={`Name ${data?.data?.name}`} />
           <UU5.Bricks.Text content={`Capacity: ${data?.data?.capacity}`} />
           <UU5.Bricks.Text content={`Starting date: ${data?.data?.startingDate}`} />
+          <UU5.Bricks.Text content={`Price: ${data?.data?.price}`} />
+
           <UU5.Bricks.Button
             onClick={() => {
               UU5.Environment.setRoute({

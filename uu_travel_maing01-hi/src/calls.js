@@ -40,12 +40,36 @@ let Calls = {
     let commandUri = Calls.getCommandUri("trip/get");
     return Calls.call("get", commandUri, dtoIn);
   },
+  tripSetState(dtoIn) {
+    let commandUri = Calls.getCommandUri("trip/setState");
+    return Calls.call("post", commandUri, dtoIn);
+  },
   participantList(dtoIn) {
     let commandUri = Calls.getCommandUri("participant/list");
     return Calls.call("get", commandUri, dtoIn);
   },
   participantDelete(dtoIn) {
     let commandUri = Calls.getCommandUri("participant/delete");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+  participantUpdate(dtoIn) {
+    let commandUri = Calls.getCommandUri("participant/update");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+  tripUpdate(dtoIn) {
+    let commandUri = Calls.getCommandUri("trip/update");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+  tripCreate(dtoIn) {
+    let commandUri = Calls.getCommandUri("trip/create");
+    return Calls.call("post", commandUri, dtoIn);
+  },
+  locationList(dtoIn) {
+    let commandUri = Calls.getCommandUri("location/list");
+    return Calls.call("get", commandUri, dtoIn);
+  },
+  tripDelete(dtoIn) {
+    let commandUri = Calls.getCommandUri("trip/delete");
     return Calls.call("post", commandUri, dtoIn);
   },
 

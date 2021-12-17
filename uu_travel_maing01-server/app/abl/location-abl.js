@@ -44,7 +44,7 @@ class LocationAbl {
     let uuReturn = await this.locationDao.list({ ...dtoIn, awid });
 
     return {
-      uuReturn,
+      ...uuReturn,
     };
   }
 

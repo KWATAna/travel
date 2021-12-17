@@ -27,6 +27,7 @@ export const TripsLoader = createComponent({
     const dataListResult = useDataList({
       handlerMap: {
         load: Calls.tripsList,
+        create: Calls.tripCreate,
       },
       itemHandlerMap: {},
     });

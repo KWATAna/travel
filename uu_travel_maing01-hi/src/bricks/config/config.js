@@ -5,7 +5,7 @@ const TAG = Config.TAG + "Bricks.";
 
 export default {
   ...Config,
-
+  TRIP_UPDATE_TEXT: "MODIFY TRIP INFO",
   TAG,
   Css: UU5.Common.Css.createCssModule(
     TAG.replace(/\.$/, "")

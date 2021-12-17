@@ -1,7 +1,9 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import { createVisualComponent } from "uu5g04-hooks";
+import { useContextModal } from "../../../common/modal-manager";
 import Config from "../../config/config";
+import { ParticipantHeader, ParticipantControls, ParticipantFormUpdate } from "../../../bricks/form/participant-form";
 
 //@@viewOff:imports
 
@@ -29,6 +31,16 @@ export const ParticipantCard = createVisualComponent({
   render(props) {
     const { data } = props;
 
+    let { open, showAlert, close } = useContextModal();
+    function handleOpenDetailsModal(data) {
+      open({
+        header: <ParticipantHeader />,
+        content: <ParticipantFormUpdate data={data} closeModal={close} showAlert={showAlert} />,
+        footer: <ParticipantControls />,
+      });
+    }
+
+
     //@@viewOn:private
 
     //@@viewOff:private
@@ -42,9 +54,11 @@ export const ParticipantCard = createVisualComponent({
     return currentNestingLevel ? (
       <div>
         <UU5.Bricks.Card>
-        <UU5.Bricks.Text content={`Name ${data?.data?.name}`} />
+          <UU5.Bricks.Text content={`Name ${data?.data?.name}`} />
           <UU5.Bricks.Text content={`Date of Birth: ${data?.data?.dateOfBirth}`} />
           <UU5.Bricks.Text content={`Passport number: ${data?.data?.passNum}`} />
+          <UU5.Bricks.Button content="Delete" />
+          <UU5.Bricks.Button content="Update" onClick={() => handleOpenDetailsModal(data)} />
         </UU5.Bricks.Card>
       </div>
     ) : null;
