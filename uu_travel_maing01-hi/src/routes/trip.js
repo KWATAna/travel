@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import { createVisualComponent, useDataObject, useState } from "uu5g04-hooks";
+import { createVisualComponent, useDataObject, useState, useEffect } from "uu5g04-hooks";
 import "uu_plus4u5g01-app";
 import Config from "./config/config.js";
 import ParticipantLoader from "./trip-section/common/participant-loader";
@@ -30,6 +30,7 @@ export const Trip = createVisualComponent({
 
   render(props) {
     //@@viewOn:hooks
+
     let dataObject = useDataObject({
       handlerMap: {
         load: Calls.tripLoad,
@@ -42,6 +43,7 @@ export const Trip = createVisualComponent({
       },
     });
     let [id, setId] = useState(props.params.id);
+
     //@@viewOff:hooks
     //@@viewOn:private
     //@@viewOff:private

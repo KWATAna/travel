@@ -25,21 +25,12 @@ const ParticipantFormUpdate = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const { closeModal, isCreateForm, data } = props;
+    const { closeModal, data } = props;
 
     //@@viewOn:hooks
     const [isLoading, setLoading] = useState(false);
-    const [participants, setParticipants] = useState();
 
-    useEffect(() => {
-      let fetchLocations = async () => {
-        let participantList = await Calls.participantList();
-        await setParticipants(participantList.itemList);
-      };
-      fetchLocations();
-    }, []);
     //@@viewOff:hooks
-    console.log(participants);
     //@@viewOn:private
     async function handleUpdate(formData) {
       let { values, component } = formData;
@@ -93,14 +84,6 @@ const ParticipantFormUpdate = createVisualComponent({
           value={data?.data?.dateOfBirth}
           size="l"
         />
-        {participants && (
-          <UU5.Forms.Select name="locationId" label="Select location">
-            {participants &&
-              participants.map((item, id) => {
-                return <UU5.Forms.Select.Option key={item.id} content={item.name} value={item.id} />;
-              })}
-          </UU5.Forms.Select>
-        )}
       </UU5.Forms.ContextForm>
     );
     //@@viewOff:render

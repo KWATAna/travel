@@ -39,6 +39,15 @@ const UpdateForm = createVisualComponent({
       };
       fetchLocations();
     }, []);
+    const [participants, setParticipants] = useState();
+
+    useEffect(() => {
+      let fetchLocations = async () => {
+        let participantList = await Calls.participantList();
+        await setParticipants(participantList.itemList);
+      };
+      fetchLocations();
+    }, []);
     //@@viewOff:hooks
 
     //@@viewOn:private
@@ -48,6 +57,11 @@ const UpdateForm = createVisualComponent({
       let action;
       let response;
       let participantIdList = [];
+      if (!isCreateForm) {
+        let uuObject = { id: values.participantId, tripId: id };
+        let b = await Calls.participantUpdate(uuObject);
+        console.log(b);
+      }
       if (isCreateForm) {
         action = handlerMap.create({ ...values, participantIdList });
       } else {
@@ -98,8 +112,16 @@ const UpdateForm = createVisualComponent({
         {isCreateForm && (
           <UU5.Forms.Select name="locationId" label="Select location">
             {locations &&
-              locations.map((item, id) => {
+              locations.map((item) => {
                 return <UU5.Forms.Select.Option key={item.id} content={item.city} value={item.id} />;
+              })}
+          </UU5.Forms.Select>
+        )}
+        {!isCreateForm && (
+          <UU5.Forms.Select name="participantId" label="Select participant">
+            {participants &&
+              participants.map((item) => {
+                return <UU5.Forms.Select.Option key={item.id} content={item.name} value={item.id} />;
               })}
           </UU5.Forms.Select>
         )}

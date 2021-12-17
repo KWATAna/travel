@@ -31,6 +31,7 @@ export const TripDetails = createVisualComponent({
   render(props) {
     let data = props.dataObject;
     let { id, state } = data.data;
+    
     //@@viewOn:hooks
     let [switchState, setSwitchState] = useState(state);
     let { getConfirmRef, open, showAlert, close } = useContextModal();
@@ -44,7 +45,7 @@ export const TripDetails = createVisualComponent({
     function handleOpenConfirmModal() {
       return getConfirmRef().open({
         onRefuse: () => console.log("refuse"),
-        onConfirm: () => data.handlerMap.delete({id:id}),
+        onConfirm: () => data.handlerMap.delete({ id: id }),
         header: "Cookies",
         content: <UU5.Bricks.P>Are you sure you want to delete this TODO LIST.</UU5.Bricks.P>,
         confirmButtonProps: { content: "Delete", colorSchema: "danger" },

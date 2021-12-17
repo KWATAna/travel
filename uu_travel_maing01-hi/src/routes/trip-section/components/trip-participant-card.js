@@ -40,7 +40,6 @@ export const ParticipantCard = createVisualComponent({
       });
     }
 
-
     //@@viewOn:private
 
     //@@viewOff:private
