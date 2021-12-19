@@ -19,71 +19,71 @@
       },
       "location/create": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Authorities","Executives"]
       },
       "location/get": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public","Authorities","Executives"]
       },
       "location/update": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "location/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "location/setState": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public","Authorities","Executives" ]
       },
       "participant/create": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "participant/get": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "participant/setState": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "participant/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "participant/update": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "trip/create": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public","Authorities","Executives"]
       },
       "trip/get": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "trip/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public","Authorities","Executives"]
       },
       "trip/setState": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "trip/update": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "location/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       },
       "trip/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Public", "Authorities","Executives"]
       }
     }
   }

@@ -29,10 +29,12 @@ export const ParticipantLoader = createComponent({
       },
       handlerMap: {
         load: Calls.participantList,
+        update: Calls.participantUpdate,
       },
       itemHandlerMap: {
         delete: Calls.participantDelete,
         update: Calls.participantUpdate,
+        tripUpdate: Calls.tripUpdate,
       },
     });
     return <TripContext.Provider value={dataItemResult}>{props.children}</TripContext.Provider>;

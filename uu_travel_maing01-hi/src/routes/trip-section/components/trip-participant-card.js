@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
+import { createVisualComponent, useState } from "uu5g04-hooks";
 import { useContextModal } from "../../../common/modal-manager";
 import Config from "../../config/config";
 import { ParticipantHeader, ParticipantControls, ParticipantFormUpdate } from "../../../bricks/form/participant-form";
@@ -29,7 +29,8 @@ export const ParticipantCard = createVisualComponent({
   //@@viewOff:defaultProps
 
   render(props) {
-    const { data } = props;
+    const { data, setRemoveId } = props;
+    const [unmount, setUnmount] = useState(false);
 
     let { open, showAlert, close } = useContextModal();
     function handleOpenDetailsModal(data) {
@@ -41,7 +42,10 @@ export const ParticipantCard = createVisualComponent({
     }
 
     //@@viewOn:private
-
+    async function removeTrip() {
+      await data.handlerMap.update({ tripId: data.data.id });
+      setUnmount(!unmount);
+    }
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -52,13 +56,21 @@ export const ParticipantCard = createVisualComponent({
 
     return currentNestingLevel ? (
       <div>
-        <UU5.Bricks.Card>
-          <UU5.Bricks.Text content={`Name ${data?.data?.name}`} />
-          <UU5.Bricks.Text content={`Date of Birth: ${data?.data?.dateOfBirth}`} />
-          <UU5.Bricks.Text content={`Passport number: ${data?.data?.passNum}`} />
-          <UU5.Bricks.Button content="Delete" />
-          <UU5.Bricks.Button content="Update" onClick={() => handleOpenDetailsModal(data)} />
-        </UU5.Bricks.Card>
+        {!unmount ? (
+          <UU5.Bricks.Card>
+            <UU5.Bricks.Text content={`Name ${data?.data?.name}`} />
+            <UU5.Bricks.Text content={`Date of Birth: ${data?.data?.dateOfBirth}`} />
+            <UU5.Bricks.Text content={`Passport number: ${data?.data?.passNum}`} />
+            <UU5.Bricks.Button
+              content="Remove from the trip"
+              onClick={() => {
+                setRemoveId(data.data.id);
+                removeTrip();
+              }}
+            />
+            <UU5.Bricks.Button content="Update" onClick={() => handleOpenDetailsModal(data)} />
+          </UU5.Bricks.Card>
+        ) : null}
       </div>
     ) : null;
     //@@viewOff:render

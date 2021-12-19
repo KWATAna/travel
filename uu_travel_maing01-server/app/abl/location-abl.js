@@ -45,6 +45,7 @@ class LocationAbl {
 
     return {
       ...uuReturn,
+      uuAppErrorMap,
     };
   }
 
@@ -122,6 +123,7 @@ class LocationAbl {
 
     return {
       ...uuObject,
+      uuAppErrorMap,
     };
   }
 
@@ -168,7 +170,8 @@ class LocationAbl {
     }
 
     return {
-      uuObject,
+      ...uuObject,
+      uuAppErrorMap,
     };
   }
 
@@ -213,7 +216,7 @@ class LocationAbl {
     if (uuTravelMain.state !== "active") {
       throw new Errors.Create.TravelIsNotInCorrectState(
         { uuAppErrorMap },
-        { expectedState: "active", awid, currentState: uuTravelMain.state }
+        { awid, expectedState: "active", currentState: uuTravelMain.state }
       );
     }
 

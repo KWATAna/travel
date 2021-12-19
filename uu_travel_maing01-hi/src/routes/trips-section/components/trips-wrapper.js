@@ -57,8 +57,14 @@ export const TripsWrapper = createVisualComponent({
         key: "price",
         label: { cs: "Trip price", en: "Trip price" },
         sorterFn: (a, b) => {
-          console.log(a, b);
           return a.data.price - b.data.price;
+        },
+      },
+      {
+        key: "startingDate",
+        label: "startingDate",
+        sorterFn: (a, b) => {
+          return new Date(a.data.startingDate) - new Date(b.data.startingDate);
         },
       },
     ];
@@ -75,7 +81,6 @@ export const TripsWrapper = createVisualComponent({
         ),
         filterFn: (item, value) => {
           let fragments = value.split(/[\s,.-;:_]/);
-          console.log(item);
           return fragments.some((frag) => {
             let itemValue = typeof item.data.name === "object" ? item.data.name : item.data.name;
             return itemValue.toLowerCase().indexOf(frag.toLowerCase()) !== -1;

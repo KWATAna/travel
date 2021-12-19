@@ -31,7 +31,8 @@ export const TripDetails = createVisualComponent({
   render(props) {
     let data = props.dataObject;
     let { id, state } = data.data;
-    
+    console.log({data})
+
     //@@viewOn:hooks
     let [switchState, setSwitchState] = useState(state);
     let { getConfirmRef, open, showAlert, close } = useContextModal();
@@ -68,7 +69,9 @@ export const TripDetails = createVisualComponent({
           <UU5.Bricks.Text content={`Price: ${data.data.price}`} />
           <UU5.Bricks.Text content={`Starting date: ${data.data.startingDate}`} />
           <UU5.Bricks.Text content={`State: ${data.data.state}`} />
-          <UU5.Forms.SwitchSelector
+          <UU5.Bricks.SwitchSelector
+            colorSchema="green-rich"
+            bgStyle="filled"
             items={["active", "closed", "pending"].map((value) => ({ value }))}
             label="Set new state"
             value={switchState}

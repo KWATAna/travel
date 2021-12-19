@@ -1,7 +1,6 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
 import "uu5g04-bricks";
-import { createVisualComponent, useDataObject, useState, useEffect } from "uu5g04-hooks";
+import { createVisualComponent, useDataObject, useState } from "uu5g04-hooks";
 import "uu_plus4u5g01-app";
 import Config from "./config/config.js";
 import ParticipantLoader from "./trip-section/common/participant-loader";
@@ -30,27 +29,36 @@ export const Trip = createVisualComponent({
 
   render(props) {
     //@@viewOn:hooks
-
-    let dataObject = useDataObject({
-      handlerMap: {
-        load: Calls.tripLoad,
-        setState: Calls.tripSetState,
-        update: Calls.tripUpdate,
-        delete: Calls.tripDelete,
-      },
-      initialDtoIn: {
-        id: `${props.params.id}`,
-      },
-    });
-    let [id, setId] = useState(props.params.id);
+    let dataObject;
+    if (props?.params?.id) {
+      dataObject = useDataObject({
+        handlerMap: {
+          load: Calls.tripLoad,
+          setState: Calls.tripSetState,
+          update: Calls.tripUpdate,
+          delete: Calls.tripDelete,
+        },
+        initialDtoIn: {
+          id: `${props.params.id}`,
+        },
+      });
+    }
+    let [id, setId] = useState(props?.params?.id || false);
 
     //@@viewOff:hooks
     //@@viewOn:private
     //@@viewOff:private
-
     //@@viewOn:interface
     //@@viewOff:interface
     //@@viewOn:render
+
+    if (!id) {
+      return (
+        <div>
+          <h1>Select an existing trip</h1>
+        </div>
+      );
+    }
     return (
       <div>
         <div>
@@ -66,7 +74,7 @@ export const Trip = createVisualComponent({
               {(dataItemResult) => {
                 return (
                   <DataListStateResolver dataList={dataItemResult}>
-                    <TripParticipants />
+                    <TripParticipants params={id} />
                   </DataListStateResolver>
                 );
               }}

@@ -42,7 +42,7 @@ export const TripsBlock = createVisualComponent({
     return currentNestingLevel ? (
       <div>
         <UU5.Bricks.Card>
-          <UU5.Bricks.Text content={`Name ${data?.data?.name}`} />
+          <UU5.Bricks.Text content={`Name: ${data?.data?.name}`} />
           <UU5.Bricks.Text content={`Capacity: ${data?.data?.capacity}`} />
           <UU5.Bricks.Text content={`Starting date: ${data?.data?.startingDate}`} />
           <UU5.Bricks.Text content={`Price: ${data?.data?.price}`} />

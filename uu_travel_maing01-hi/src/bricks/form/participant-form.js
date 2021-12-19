@@ -1,8 +1,7 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, useLsiValues, useEffect } from "uu5g04-hooks";
+import { createVisualComponent, useState } from "uu5g04-hooks";
 import Config from "../config/config";
-import Calls from "../../calls";
 import Lsi from "./participant-form-lsi";
 //@@viewOff:imports
 
