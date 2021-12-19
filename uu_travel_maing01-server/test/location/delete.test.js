@@ -1,5 +1,11 @@
 const { TestHelper } = require("uu_appg01_server-test");
+import { appCodePrefix } from "./utilities";
 const CMD = "location/delete";
+// const APP_CODE = "uu-travel-main";
+
+// function appCodePrefix(param) {
+//   return `${APP_CODE}/${param}`;
+// }
 
 beforeAll(async () => {
   await TestHelper.setup();
@@ -37,5 +43,23 @@ describe("Testing the location/delete uuCmd...", () => {
     expect.assertions(2);
     expect(result.status).toEqual(200);
     expect(result.data.uuAppErrorMap).toBeDefined();
+  });
+
+  test("DtoIn contains unsupported keys.", async () => {
+    let expectedWarning = {
+      code: `${CMD}/unsupportedKeys`,
+      message: "DtoIn contains unsupported keys.",
+      unsupportedKeys: ["extraAttribute"],
+    };
+    expect.assertions(2);
+
+    let helpingVar = await TestHelper.executePostCommand("location/create", dtoIn);
+    let response = await TestHelper.executePostCommand("location/delete", {
+      id: helpingVar.id,
+      extraAttribute: expectedWarning.unsupportedKeys,
+    });
+    let warning = response.uuAppErrorMap[appCodePrefix(expectedWarning.code)];
+    expect(warning).toBeDefined();
+    expect(warning.type).toEqual("warning");
   });
 });

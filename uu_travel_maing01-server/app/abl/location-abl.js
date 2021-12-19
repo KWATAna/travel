@@ -9,6 +9,9 @@ const WARNINGS = {
   unsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
+  deleteUnsupportedKeys: {
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
+  },
 };
 
 class LocationAbl {
@@ -105,7 +108,7 @@ class LocationAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
+      WARNINGS.deleteUnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
 

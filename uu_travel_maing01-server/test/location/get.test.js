@@ -39,6 +39,5 @@ describe("Testing the location/delete uuCmd...", () => {
     expect(result.data.uuAppErrorMap).toBeDefined();
     expect(result.data.name).toEqual(dtoIn.name);
     expect(result.data.city).toEqual(dtoIn.city);
-
   });
 });
