@@ -18,8 +18,12 @@ const Lsi = {
       en: "TRIPS LIST",
     },
     trip: {
-      cs: "TRIPS CONTROLS",
-      en: "TRIPS CONTROLS",
+      cs: "TRIP CONTROLS",
+      en: "TRIP CONTROLS",
+    },
+    locations: {
+      cs: "LOCATIONS",
+      en: "LOCATIONS",
     },
   },
 

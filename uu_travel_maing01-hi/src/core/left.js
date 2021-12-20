@@ -51,6 +51,7 @@ export const Left = createVisualComponent({
           items={[
             { id: "trips", href: "trips", content: <UU5.Bricks.Lsi lsi={Lsi.left.trips} /> },
             { id: "trip", href: "trip", content: <UU5.Bricks.Lsi lsi={Lsi.left.trip} /> },
+            { id: "locations", href: "locations", content: <UU5.Bricks.Lsi lsi={Lsi.left.locations} /> },
           ]}
         />
       </Plus4U5.App.Left>

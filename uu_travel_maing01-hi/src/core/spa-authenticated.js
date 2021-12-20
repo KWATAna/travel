@@ -11,6 +11,8 @@ import Bottom from "./bottom";
 import Home from "../routes/home";
 import Trips from "../routes/trips";
 import Trip from "../routes/trip";
+import Locations from "../routes/location";
+
 import { ModalManager } from "../common/modal-manager";
 //@@viewOff:imports
 
@@ -31,6 +33,7 @@ const ROUTES = {
   about: { component: <About /> },
   trips: { component: <Trips /> },
   trip: { component: <Trip /> },
+  locations: { component: <Locations /> },
   "sys/uuAppWorkspace/initUve": { component: <InitAppWorkspace /> },
   controlPanel: { component: <ControlPanel /> },
 };
