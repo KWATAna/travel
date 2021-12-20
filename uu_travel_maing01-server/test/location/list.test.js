@@ -61,7 +61,6 @@ describe("Testing the location/delete uuCmd...", () => {
     });
     let warning = response.uuAppErrorMap[appCodePrefix(expectedWarning.code)];
     expect(response.status).toEqual(200);
-    console.log(warning);
     expect(warning).toBeDefined();
     expect(warning.type).toEqual("warning");
     expect(response.data.itemList).toBeDefined();
