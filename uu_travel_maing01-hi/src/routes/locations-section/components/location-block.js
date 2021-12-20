@@ -4,7 +4,6 @@ import { createVisualComponent } from "uu5g04-hooks";
 import Config from "../../config/config";
 import Css from "./location-block.css";
 
-
 //@@viewOff:imports
 
 const STATICS = {
@@ -30,14 +29,9 @@ export const LocationsBlock = createVisualComponent({
 
   render(props) {
     const { data } = props;
-    console.log(data)
 
     //@@viewOn:private
-    // const baseUri = Uri.Uri.parse(top.location.href).getBaseUri().toString();
-    // const imageUrl = Uri.UriBuilder.parse(baseUri)
-    //   .setUseCase("location/getImageData")
-    //   .setParameters({ image: newspaperDataObject.data?.image })
-    //   .toString();
+
     //@@viewOff:private
 
     //@@viewOn:interface

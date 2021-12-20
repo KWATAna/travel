@@ -24,9 +24,7 @@ const CLASS_NAMES = {
   align-items: center;
   height: 200px;
   `,
-
 };
-
 
 export const Trip = createVisualComponent({
   ...STATICS,

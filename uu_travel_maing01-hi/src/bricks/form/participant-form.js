@@ -69,11 +69,11 @@ const ParticipantFormUpdate = createVisualComponent({
         progressIndicator={<UU5.Bricks.Loading />}
         disabled={isLoading}
       >
-        <UU5.Forms.Text label="name" name="name" value={data?.data?.name} />
-        <UU5.Forms.Text label="passExpiry" name="passExpiry" value={data?.data?.passExpiry} />
-        <UU5.Forms.Text label="passNum" name="passNum" value={data?.data?.passNum} />
-        <UU5.Forms.Text label="state" name="state" value={data?.data?.state} />
-        <UU5.Forms.Text label="telNumber" name="telNumber" value={data?.data?.telNumber} />
+        <UU5.Forms.Text required label="name" name="name" value={data?.data?.name} />
+        <UU5.Forms.Text required label="passExpiry" name="passExpiry" value={data?.data?.passExpiry} />
+        <UU5.Forms.Text required label="passNum" name="passNum" value={data?.data?.passNum} />
+        <UU5.Forms.Text required label="state" name="state" value={data?.data?.state} />
+        <UU5.Forms.Text required label="telNumber" name="telNumber" value={data?.data?.telNumber} />
 
         <UU5.Forms.DatePicker
           label="dateOfBirth"

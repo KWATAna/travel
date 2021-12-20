@@ -15,6 +15,7 @@ const STATICS = {
 };
 
 export const ParticipantLoader = createComponent({
+  ...STATICS,
   //@@viewOn:propTypes
   //@@viewOff:propTypes
 

@@ -3,8 +3,7 @@ const Lsi = {
     en: "Modify trip info",
   },
   info: {
-    en:
-      "<uu5string/>On this form you can change state of test ticket. For more information see <UU5.Bricks.Link href='%s' target='_blank' content='documentation'/>.",
+    en: "<uu5string/>On this form you can change state of trip.",
   },
   submit: (param) => {
     return {

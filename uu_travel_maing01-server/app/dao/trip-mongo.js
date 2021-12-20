@@ -7,7 +7,7 @@ class TripMongo extends UuObjectDao {
   }
 
   async create(uuObject) {
-    return await super.insertOne(uuObject);
+    return await super.insertOne({ ...uuObject, state: "active" });
   }
 
   async get(awid, id) {

@@ -36,7 +36,6 @@ const text = () => Config.Css.css`
   overflow: hidden;
 `;
 
-
 export default {
   main,
   header,

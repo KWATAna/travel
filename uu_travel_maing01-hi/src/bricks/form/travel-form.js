@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, useLsiValues, useEffect } from "uu5g04-hooks";
+import { createVisualComponent, useState, useEffect } from "uu5g04-hooks";
 import Config from "../config/config";
 import Calls from "../../calls";
 import Lsi from "./travel-form-lsi";
@@ -28,7 +28,6 @@ const UpdateForm = createVisualComponent({
     const { closeModal, isCreateForm, data, handlerMap } = props;
 
     //@@viewOn:hooks
-    const input = useLsiValues(Lsi);
     const [isLoading, setLoading] = useState(false);
     const [locations, setLocations] = useState();
 
@@ -39,15 +38,7 @@ const UpdateForm = createVisualComponent({
       };
       fetchLocations();
     }, []);
-    const [participants, setParticipants] = useState();
 
-    useEffect(() => {
-      let fetchLocations = async () => {
-        let participantList = await Calls.participantList();
-        await setParticipants(participantList.itemList);
-      };
-      fetchLocations();
-    }, []);
     //@@viewOff:hooks
 
     //@@viewOn:private
@@ -95,6 +86,7 @@ const UpdateForm = createVisualComponent({
         disabled={isLoading}
       >
         <UU5.Forms.Text
+          required
           pattern="[A-Za-z]{3}"
           patternMessage="Must contain at least 3 alphabet characters"
           label="name"
@@ -102,6 +94,7 @@ const UpdateForm = createVisualComponent({
           value={data?.data?.name}
         />
         <UU5.Forms.Text
+          required
           patternMessage="Must contain digits"
           pattern="^[0-9]*$"
           label="price"
@@ -109,6 +102,7 @@ const UpdateForm = createVisualComponent({
           value={data?.data?.price}
         />
         <UU5.Forms.Text
+          required
           patternMessage="Must contain digits"
           pattern="^[0-9]*$"
           label="capacity"
@@ -116,6 +110,7 @@ const UpdateForm = createVisualComponent({
           value={data?.data?.capacity}
         />
         <UU5.Forms.DatePicker
+          required
           label="startingDate"
           name="startingDate"
           valueType="iso"
