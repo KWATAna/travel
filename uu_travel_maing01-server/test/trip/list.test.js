@@ -1,10 +1,27 @@
 const { TestHelper } = require("uu_appg01_server-test");
-const CMD = "trip/delete";
+const CMD = "trip/list";
 const APP_CODE = "uu-travel-main";
 
 function appCodePrefix(param) {
   return `${APP_CODE}/${param}`;
 }
+
+const dtoIn = {
+  name: "New Year in Prague",
+  capacity: 2,
+  price: 1200,
+  locationId: "61b9e130f97c1a1614b749ce",
+  participantIdList: [],
+  startingDate: "2021-12-30",
+};
+const helpingDtoIn = {
+  name: "PORKIPINNE",
+  country: "Czech Republic",
+  city: "BARAGUE",
+  address: "Ve Smečkách 588/12, 110 00",
+  visa: false,
+  category: 1,
+};
 
 beforeAll(async () => {
   await TestHelper.setup();
@@ -26,100 +43,43 @@ afterAll(async () => {
   await TestHelper.dropDatabase();
   await TestHelper.teardown();
 });
-const dtoIn = {
-  name: "New Year in Prague",
-  capacity: 2,
-  price: 1200,
-  locationId: "61b9e130f97c1a1614b749ce",
-  participantIdList: [],
-  startingDate: "2021-12-30",
-};
-const helpingDtoIn = {
-  name: "PORKIPINNE",
-  country: "Czech Republic",
-  city: "BARAGUE",
-  address: "Ve Smečkách 588/12, 110 00",
-  visa: false,
-  category: 1,
-};
-const participantdtoIn = {
-  name: "New participant 3",
-  dateOfBirth: "1990-08-09",
-  passNum: "KA66624",
-  passExpiry: "2023-08-09",
-  tripId: "61b9e130f97c1a1614b749ce",
-  telNumber: "+380935678934",
-};
 
-describe("Testing trip/delete command...", () => {
+describe("Testing trip/list command...", () => {
   test("HDS", async () => {
-    expect.assertions(2);
+    expect.assertions(3);
     let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
-    let trip = await TestHelper.executePostCommand("trip/create", { ...dtoIn, locationId: helpingVar.id });
-    let result = await TestHelper.executePostCommand("trip/delete", { id: trip.id });
+    await TestHelper.executePostCommand("trip/create", { ...dtoIn, locationId: helpingVar.id });
+    await TestHelper.executePostCommand("trip/create", { ...dtoIn, locationId: helpingVar.id });
 
+    let result = await TestHelper.executeGetCommand("trip/list", {});
     expect(result.status).toEqual(200);
     expect(result.data.uuAppErrorMap).toBeDefined();
-  });
-
-  test("TheTripHasParticipants error", async () => {
-    expect.assertions(2);
-    let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
-    let participant = await TestHelper.executePostCommand("participant/create", participantdtoIn);
-    let trip = await TestHelper.executePostCommand("trip/create", {
-      ...dtoIn,
-      locationId: helpingVar.id,
-      participantIdList: [participant.id],
-    });
-    let expectedError = {
-      code: `${CMD}/TheTripHasParticipants`,
-    };
-
-    try {
-      await TestHelper.executePostCommand("trip/delete", { id: trip.id });
-    } catch (err) {
-      let error = err.dtoOut.uuAppErrorMap[appCodePrefix(expectedError.code)];
-      expect(error).toBeDefined();
-      expect(err.response.status).toEqual(400);
-    }
+    expect(result.data.itemList).toBeDefined();
   });
 
   test("DtoIn contains unsupported keys.", async () => {
     let expectedWarning = {
       code: `${CMD}/unsupportedKeys`,
-      message: "DtoIn contains unsupported keys.",
-      unsupportedKeys: ["extraAttribute"],
     };
-    expect.assertions(2);
+    expect.assertions(3);
 
     let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
-    let trip = await TestHelper.executePostCommand("trip/create", {
+    await TestHelper.executePostCommand("trip/create", {
       ...dtoIn,
       locationId: helpingVar.id,
     });
-    let response = await TestHelper.executePostCommand("trip/delete", {
-      id: trip.id,
+    await TestHelper.executePostCommand("trip/create", {
+      ...dtoIn,
+      locationId: helpingVar.id,
+    });
+    let response = await TestHelper.executeGetCommand("trip/list", {
       extraAttribute: "extraAttribute",
     });
     let warning = response.uuAppErrorMap[appCodePrefix(expectedWarning.code)];
+    expect(response.data.itemList).toBeDefined();
     expect(warning).toBeDefined();
     expect(warning.type).toEqual("warning");
   });
-
-  test("DtoIn is not valid.", async () => {
-    let expectedError = {
-      code: `${CMD}/invalidDtoIn`,
-    };
-    try {
-      await TestHelper.executePostCommand("trip/delete", {});
-    } catch (e) {
-      expect.assertions(3);
-      expect(e.status).toEqual(400);
-      expect(e.message).toEqual("DtoIn is not valid.");
-      expect(e.code).toEqual(appCodePrefix(expectedError.code));
-    }
-  });
-
   test("Test - TravelIsNotInCorrectState", async () => {
     const filter = `{awid: "${TestHelper.awid}"}`;
     const params = `{$set: ${JSON.stringify({ state: `vfr` })}}`;
@@ -134,7 +94,7 @@ describe("Testing trip/delete command...", () => {
     };
     expect.assertions(3);
     try {
-      await TestHelper.executePostCommand("trip/delete", {});
+      await TestHelper.executeGetCommand("trip/list", {});
     } catch (error) {
       expect(error.status).toEqual(400);
       expect(error.message).toEqual(expectedError.message);
@@ -147,7 +107,7 @@ describe("Testing trip/delete command...", () => {
 
   test("TravelInstanceDoesNotExist", async () => {
     let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
-    let trip = await TestHelper.executePostCommand("trip/create", { ...dtoIn, locationId: helpingVar.id });
+    await TestHelper.executePostCommand("trip/create", { ...dtoIn, locationId: helpingVar.id });
     let filter = `{awid: "${TestHelper.awid}"}`;
     let params = `{$set: ${JSON.stringify({ awid: 77777777777777 })}}`;
     await TestHelper.executeDbScript(`db.travelMain.findOneAndUpdate(${filter}, ${params});`);
@@ -156,7 +116,7 @@ describe("Testing trip/delete command...", () => {
       message: "Travel does not exist.",
     };
     try {
-      await TestHelper.executeGetCommand("trip/list", { id: trip.id });
+      await TestHelper.executeGetCommand("trip/list", {});
     } catch (error) {
       expect(error.status).toEqual(400);
       expect(error.message).toEqual(expectedError.message);

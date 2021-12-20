@@ -41,6 +41,11 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
+      "location/getImageData":{
+        "realization": "api/controllers/LocationController.getImageData",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
       "participant/create": {
         "realization": "api/controllers/ParticipantController.create",
         "httpMethod": "POST",

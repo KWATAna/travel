@@ -43,3 +43,9 @@ const locationUpdateDtoInType = shape({
   state: oneOf(["active", "under construction", "closed"]),
   image: binary(),
 });
+
+const locationGetImageDataDtoInType = shape({
+  image: code().isRequired(),
+  contentDisposition: oneOf(["inline", "attachment"]),
+});
+

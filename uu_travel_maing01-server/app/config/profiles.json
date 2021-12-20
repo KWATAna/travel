@@ -33,6 +33,10 @@
         "sysStateList": ["active"],
         "profileList": ["Public", "Authorities","Executives"]
       },
+      "location/getImageData":{
+        "sysStateList": ["active"],
+        "profileList": ["Authorities","Executives"]
+      },
       "location/setState": {
         "sysStateList": ["active"],
         "profileList": ["Public","Authorities","Executives" ]

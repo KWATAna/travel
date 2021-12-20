@@ -8,6 +8,12 @@ const WARNINGS = {
   unsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
+  listUnsupportedKeys: {
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
+  },
+  participantUnsupportedKeys: {
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
+  },
 };
 
 class ParticipantAbl {
@@ -29,20 +35,20 @@ class ParticipantAbl {
     if (uuTravelMain.state !== "active") {
       throw new Errors.Update.uuTravelAppIsNotInCorrectState(
         { uuAppErrorMap },
-        { expectedState: "active", awid, currentState: uuTravelMain.state }
+        { awid, currentState: uuTravelMain.state, expectedState: "active" }
       );
     }
     let validationResult = this.validator.validate("participantUpdateDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
+      WARNINGS.participantUnsupportedKeys.code,
       Errors.Update.InvalidDtoIn
     );
 
     let uuParticipant = await this.participantDao.get(awid, dtoIn.id);
     if (!uuParticipant) {
-      throw new Errors.Update.uuTravelAppDoesNotExist({ uuAppErrorMap }, { id: dtoIn.id });
+      throw new Errors.Update.ParticipantDoesNotExist({ uuAppErrorMap }, { id: dtoIn.id });
     }
     if (uuParticipant.state !== "active") {
       throw new Errors.Update.ParticipantIsNotInCorrectState(
@@ -72,15 +78,15 @@ class ParticipantAbl {
     if (uuTravelMain.state !== "active") {
       throw new Errors.SetState.uuTravelAppIsNotInCorrectState(
         { uuAppErrorMap },
-        { expectedState: "active", awid, currentState: uuTravelMain.state }
+        { awid, currentState: uuTravelMain.state, expectedState: "active" }
       );
     }
     let validationResult = this.validator.validate("participantListDtoInType", dtoIn);
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
-      Errors.SetState.InvalidDtoIn
+      WARNINGS.listUnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
     );
     const { pageInfo, ...restDtoIn } = dtoIn;
     let filter = { ...restDtoIn, awid };

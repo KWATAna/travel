@@ -155,14 +155,14 @@ const Update = {
   uuTravelAppIsNotInCorrectState: class extends TravelMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}uuTravelAppIsNotInCorrectState	`;
+      this.code = `${Update.UC_CODE}uuTravelAppIsNotInCorrectState`;
       this.message = "uuTravelApp is not in correct state.";
     }
   },
   ParticipantDoesNotExist: class extends TravelMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Update.UC_CODE}participantDoesNotExist	`;
+      this.code = `${Update.UC_CODE}participantDoesNotExist`;
       this.message = "Participant does not exist";
     }
   },

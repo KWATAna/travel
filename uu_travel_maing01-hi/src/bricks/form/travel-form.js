@@ -94,9 +94,27 @@ const UpdateForm = createVisualComponent({
         progressIndicator={<UU5.Bricks.Loading />}
         disabled={isLoading}
       >
-        <UU5.Forms.Text label="name" name="name" value={data?.data?.name} />
-        <UU5.Forms.Text label="price" name="price" value={data?.data?.price} />
-        <UU5.Forms.Text label="capacity" name="capacity" value={data?.data?.capacity} />
+        <UU5.Forms.Text
+          pattern="[A-Za-z]{3}"
+          patternMessage="Must contain at least 3 alphabet characters"
+          label="name"
+          name="name"
+          value={data?.data?.name}
+        />
+        <UU5.Forms.Text
+          patternMessage="Must contain digits"
+          pattern="^[0-9]*$"
+          label="price"
+          name="price"
+          value={data?.data?.price}
+        />
+        <UU5.Forms.Text
+          patternMessage="Must contain digits"
+          pattern="^[0-9]*$"
+          label="capacity"
+          name="capacity"
+          value={data?.data?.capacity}
+        />
         <UU5.Forms.DatePicker
           label="startingDate"
           name="startingDate"

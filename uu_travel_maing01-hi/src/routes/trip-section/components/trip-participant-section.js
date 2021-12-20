@@ -14,6 +14,12 @@ const STATICS = {
   nestingLevel: "bigBoxCollection",
   //@@viewOff:statics
 };
+const CLASS_NAMES = {
+  centeredHeader: () => Config.Css.css`
+  flex-direction: column;
+  align-items: center;
+  `,
+};
 
 export const TripParticipants = createVisualComponent({
   ...STATICS,
@@ -52,7 +58,8 @@ export const TripParticipants = createVisualComponent({
     useEffect(() => {
       let fetchParticipants = async () => {
         let participantList = await Calls.participantList();
-        await setParticipants(participantList.itemList);
+        let list = participantList.itemList.filter((el) => el.tripId !== params);
+        await setParticipants(list);
       };
       fetchParticipants();
     }, []);
@@ -76,7 +83,12 @@ export const TripParticipants = createVisualComponent({
       <Uu5Tiles.ControllerProvider data={data}>
         <UU5.Forms.Form onSave={UpdateTripParticipant}>
           {participants && (
-            <UU5.Forms.Select name="id" label="Select participant">
+            <UU5.Forms.Select
+              className={CLASS_NAMES.centeredHeader()}
+              name="id"
+              labelWidth="auto"
+              label="Select participant"
+            >
               {participants &&
                 participants.map((item) => {
                   return <UU5.Forms.Select.Option key={item.id} content={item.name} value={item.id} />;

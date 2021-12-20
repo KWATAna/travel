@@ -8,9 +8,18 @@ const WARNINGS = {
   unsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
+  listUnsupportedKeys: {
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
+  },
+  getUnsupportedKeys: {
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`,
+  },
   ParticipantDoesNotExist: {
     code: `${Errors.Create.UC_CODE}ParticipantDoesNotExist`,
     message: "Create trip by trip DAO create failed.",
+  },
+  deleteUnsupportedKeys: {
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
   },
 };
 
@@ -41,8 +50,8 @@ class TripAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
-      Errors.Update.InvalidDtoIn
+      WARNINGS.listUnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
     );
     const { pageInfo, ...restDtoIn } = dtoIn;
     let filter = { ...restDtoIn, awid };
@@ -154,7 +163,7 @@ class TripAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
+      WARNINGS.deleteUnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
     );
     const uuTrip = await this.tripDao.get(awid, dtoIn.id);
@@ -180,7 +189,7 @@ class TripAbl {
     if (uuTravelMain.state !== "active") {
       throw new Errors.Create.uuTravelAppIsNotInCorrectState(
         { uuAppErrorMap },
-        { expectedState: "active", awid, currentState: uuTravelMain.state }
+        { awid, currentState: uuTravelMain.state, expectedState: "active" }
       );
     }
 
@@ -190,7 +199,7 @@ class TripAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
+      WARNINGS.getUnsupportedKeys.code,
       Errors.Get.InvalidDtoIn
     );
 
@@ -253,7 +262,7 @@ class TripAbl {
         nonExistingParticipants.push(dtoIn.participantIdList[i]);
       }
     }
-    ValidationHelper.addWarning(uuAppErrorMap, WARNINGS.ParticipantDoesNotExist, {
+    ValidationHelper.addWarning(uuAppErrorMap, WARNINGS.ParticipantDoesNotExist.code, {
       participantList: nonExistingParticipants,
     });
 

@@ -74,7 +74,6 @@ const ParticipantFormUpdate = createVisualComponent({
         <UU5.Forms.Text label="passNum" name="passNum" value={data?.data?.passNum} />
         <UU5.Forms.Text label="state" name="state" value={data?.data?.state} />
         <UU5.Forms.Text label="telNumber" name="telNumber" value={data?.data?.telNumber} />
-        <UU5.Forms.Text label="tripId" name="tripId" value={data?.data?.tripId} />
 
         <UU5.Forms.DatePicker
           label="dateOfBirth"

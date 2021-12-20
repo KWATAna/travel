@@ -1,5 +1,10 @@
 const { TestHelper } = require("uu_appg01_server-test");
-const CMD = "location/create";
+const CMD = "participant/create";
+const APP_CODE = "uu-travel-main";
+
+function appCodePrefix(param) {
+  return `${APP_CODE}/${param}`;
+}
 
 beforeAll(async () => {
   await TestHelper.setup();
@@ -37,5 +42,20 @@ describe("Testing participant create command...", () => {
     expect(result.status).toEqual(200);
     expect(result.data.uuAppErrorMap).toBeDefined();
     expect(result.data.state).toEqual("active");
+  });
+  test("Invalid dtoIn", async () => {
+    let expectedWarning = {
+      code: `${CMD}/invalidDtoIn`,
+      message: "DtoIn contains unsupported keys.",
+      unsupportedKeys: ["extraAttribute"],
+    };
+    expect.assertions(3);
+    try {
+      await TestHelper.executePostCommand("participant/create", { field: "unsupported" });
+    } catch (e) {
+      expect(e.status).toEqual(400);
+      expect(e.message).toEqual("DtoIn is not valid.");
+      expect(e.code).toEqual(appCodePrefix(expectedWarning.code));
+    }
   });
 });

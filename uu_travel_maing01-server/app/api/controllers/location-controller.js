@@ -24,6 +24,11 @@ class LocationController {
   create(ucEnv) {
     return LocationAbl.create(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }
+  async getImageData(ucEnv) {
+    let dtoIn = ucEnv.getDtoIn();
+    let dtoOut = await LocationAbl.getImageData(ucEnv.getUri().getAwid(), dtoIn);
+    return ucEnv.setBinaryDtoOut(dtoOut, dtoIn.contentDisposition);
+  }
 }
 
 module.exports = new LocationController();

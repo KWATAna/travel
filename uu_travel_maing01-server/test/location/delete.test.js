@@ -1,11 +1,10 @@
 const { TestHelper } = require("uu_appg01_server-test");
-import { appCodePrefix } from "./utilities";
 const CMD = "location/delete";
-// const APP_CODE = "uu-travel-main";
+const APP_CODE = "uu-travel-main";
 
-// function appCodePrefix(param) {
-//   return `${APP_CODE}/${param}`;
-// }
+function appCodePrefix(param) {
+  return `${APP_CODE}/${param}`;
+}
 
 beforeAll(async () => {
   await TestHelper.setup();

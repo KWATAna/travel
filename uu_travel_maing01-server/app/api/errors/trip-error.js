@@ -209,7 +209,28 @@ const Update = {
 
 const List = {
   UC_CODE: `${TRIP_ERROR_PREFIX}list/`,
-  
+  InvalidDtoIn: class extends TravelMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  uuTravelAppDoesNotExist: class extends TravelMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}uuTravelAppDoesNotExist`;
+      this.message = "Travel does not exist.";
+    }
+  },
+
+  uuTravelAppIsNotInCorrectState: class extends TravelMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${List.UC_CODE}uuTravelAppIsNotInCorrectState`;
+      this.message = "Travel is not in correct state.";
+    }
+  },
 };
 
 module.exports = {

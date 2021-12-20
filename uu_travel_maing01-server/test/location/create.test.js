@@ -64,7 +64,7 @@ describe("Testing location create command...", () => {
     }
   });
 
-  test("Test - TodosIsNotInCorrectState", async () => {
+  test("Test - TravelIsNotInCorrectState", async () => {
     const filter = `{awid: "${TestHelper.awid}"}`;
     const params = `{$set: ${JSON.stringify({ state: `vfr` })}}`;
     const restore = `{$set: ${JSON.stringify({ state: `active` })}}`;
@@ -87,7 +87,7 @@ describe("Testing location create command...", () => {
     }
     await TestHelper.executeDbScript(`db.travelMain.findOneAndUpdate(${filter}, ${restore});`);
   });
-  test("TodoInstanceDoesNotExist", async () => {
+  test("TravelInstanceDoesNotExist", async () => {
     let filter = `{awid: "${TestHelper.awid}"}`;
     let params = `{$set: ${JSON.stringify({ awid: 77777777777777 })}}`;
     await TestHelper.executeDbScript(`db.travelMain.findOneAndUpdate(${filter}, ${params});`);

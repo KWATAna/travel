@@ -111,7 +111,7 @@ export const TripsWrapper = createVisualComponent({
         <Uu5Tiles.InfoBar />
         <Uu5Tiles.FilterBar />
         <Uu5Tiles.ActionBar actions={getActions()} />
-        <Uu5Tiles.Grid tileSpacing={8} rowSpacing={2}>
+        <Uu5Tiles.Grid tileSpacing={8} rowSpacing={2} tileMinWidth={200} tileMaxWidth={400}>
           <TripsBlock></TripsBlock>
         </Uu5Tiles.Grid>
       </Uu5Tiles.ControllerProvider>

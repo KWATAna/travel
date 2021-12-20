@@ -12,6 +12,21 @@ const WARNINGS = {
   deleteUnsupportedKeys: {
     code: `${Errors.Delete.UC_CODE}unsupportedKeys`,
   },
+  listUnsupportedKeys: {
+    code: `${Errors.List.UC_CODE}unsupportedKeys`,
+  },
+  setStateUnsupportedKeys: {
+    code: `${Errors.SetState.UC_CODE}unsupportedKeys`,
+  },
+  updateUnsupportedKeys: {
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`,
+  },
+  getUnsupportedKeys: {
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`,
+  },
+  getImageDataUnsupportedKeys: {
+    code: `${Errors.GetImageData.UC_CODE}unsupportedKeys`,
+  },
 };
 
 class LocationAbl {
@@ -37,13 +52,10 @@ class LocationAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
+      WARNINGS.listUnsupportedKeys.code,
       Errors.List.InvalidDtoIn
     );
 
-    // dtoIn.sort = { [dtoIn.sortBy]: dtoIn.order == "asc" ? 1 : -1 };
-    //
-    // let sort = {"name":1}
     let uuReturn = await this.locationDao.list({ ...dtoIn, awid });
 
     return {
@@ -67,7 +79,7 @@ class LocationAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
+      WARNINGS.setStateUnsupportedKeys.code,
       Errors.SetState.InvalidDtoIn
     );
 
@@ -146,7 +158,7 @@ class LocationAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
+      WARNINGS.updateUnsupportedKeys.code,
       Errors.Update.InvalidDtoIn
     );
 
@@ -194,7 +206,7 @@ class LocationAbl {
     uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.unsupportedKeys.code,
+      WARNINGS.getUnsupportedKeys.code,
       Errors.Get.InvalidDtoIn
     );
     // HDS 3   System gets uuObject item from uuAppObjectStore (using item DAO get with awid and dtoIn.id).
@@ -259,6 +271,30 @@ class LocationAbl {
       ...uuLocation,
       uuAppErrorMap,
     };
+  }
+
+  async getImageData(awid, dtoIn) {
+    let validationResult = this.validator.validate("locationGetImageDataDtoInType", dtoIn);
+
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.getImageDataUnsupportedKeys.code,
+      Errors.GetImageData.InvalidDtoIn
+    );
+
+    let dtoOut;
+    try {
+      dtoOut = await this.imageDao.getDataByCode(awid, dtoIn.image);
+    } catch (e) {
+      if (e.code === "uu-app-binarystore/objectNotFound") {
+        throw new Errors.GetImageData.LocationImageDoesNotExist({ uuAppErrorMap }, { image: dtoIn.image });
+      }
+      throw e;
+    }
+
+    dtoOut.uuAppErrorMap = uuAppErrorMap;
+    return dtoOut;
   }
 }
 

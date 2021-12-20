@@ -13,6 +13,15 @@ const STATICS = {
   nestingLevel: "bigBoxCollection",
   //@@viewOff:statics
 };
+const CLASS_NAMES = {
+  centeredHeader: () => Config.Css.css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  `,
+};
 
 export const TripDetails = createVisualComponent({
   ...STATICS,
@@ -31,7 +40,6 @@ export const TripDetails = createVisualComponent({
   render(props) {
     let data = props.dataObject;
     let { id, state } = data.data;
-    console.log({data})
 
     //@@viewOn:hooks
     let [switchState, setSwitchState] = useState(state);
@@ -43,10 +51,22 @@ export const TripDetails = createVisualComponent({
         footer: <UpdateControls />,
       });
     }
+    async function deleteTrip() {
+      try {
+        await data.handlerMap.delete({ id: id });
+      } catch (e) {
+        UU5.Environment.getPage()
+          .getAlertBus()
+          .addAlert({
+            content: <UU5.Bricks.Text content="Cannot delete trip with active items" />,
+            colorSchema: "red",
+          });
+      }
+    }
     function handleOpenConfirmModal() {
       return getConfirmRef().open({
         onRefuse: () => console.log("refuse"),
-        onConfirm: () => data.handlerMap.delete({ id: id }),
+        onConfirm: () => deleteTrip(),
         header: "Cookies",
         content: <UU5.Bricks.P>Are you sure you want to delete this TODO LIST.</UU5.Bricks.P>,
         confirmButtonProps: { content: "Delete", colorSchema: "danger" },
@@ -64,13 +84,13 @@ export const TripDetails = createVisualComponent({
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     return currentNestingLevel ? (
       <div>
-        <UU5.Bricks.Card>
+        <UU5.Bricks.Card colorSchema="blue-rich" className={CLASS_NAMES.centeredHeader()}>
           <UU5.Bricks.Text content={`Name: ${data.data.name}`} />
           <UU5.Bricks.Text content={`Price: ${data.data.price}`} />
           <UU5.Bricks.Text content={`Starting date: ${data.data.startingDate}`} />
           <UU5.Bricks.Text content={`State: ${data.data.state}`} />
           <UU5.Bricks.SwitchSelector
-            colorSchema="green-rich"
+            colorSchema="blue-rich"
             bgStyle="filled"
             items={["active", "closed", "pending"].map((value) => ({ value }))}
             label="Set new state"
@@ -80,8 +100,14 @@ export const TripDetails = createVisualComponent({
               setSwitchState(value);
             }}
           />
-          <UU5.Bricks.Button onClick={handleOpenConfirmModal}>Delete</UU5.Bricks.Button>
-          <UU5.Bricks.Button onClick={() => handleOpenDetailsModal(data)}>Update</UU5.Bricks.Button>
+          <UU5.Bricks.ButtonGroup>
+            <UU5.Bricks.Button size="s" onClick={handleOpenConfirmModal}>
+              Delete
+            </UU5.Bricks.Button>
+            <UU5.Bricks.Button size="s" onClick={() => handleOpenDetailsModal(data)}>
+              Update
+            </UU5.Bricks.Button>
+          </UU5.Bricks.ButtonGroup>
         </UU5.Bricks.Card>
       </div>
     ) : null;

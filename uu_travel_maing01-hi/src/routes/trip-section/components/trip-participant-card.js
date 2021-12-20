@@ -4,7 +4,7 @@ import { createVisualComponent, useState } from "uu5g04-hooks";
 import { useContextModal } from "../../../common/modal-manager";
 import Config from "../../config/config";
 import { ParticipantHeader, ParticipantControls, ParticipantFormUpdate } from "../../../bricks/form/participant-form";
-
+import Css from "./trip-participant-card.css";
 //@@viewOff:imports
 
 const STATICS = {
@@ -57,18 +57,25 @@ export const ParticipantCard = createVisualComponent({
     return currentNestingLevel ? (
       <div>
         {!unmount ? (
-          <UU5.Bricks.Card>
-            <UU5.Bricks.Text content={`Name ${data?.data?.name}`} />
-            <UU5.Bricks.Text content={`Date of Birth: ${data?.data?.dateOfBirth}`} />
-            <UU5.Bricks.Text content={`Passport number: ${data?.data?.passNum}`} />
-            <UU5.Bricks.Button
-              content="Remove from the trip"
-              onClick={() => {
-                setRemoveId(data.data.id);
-                removeTrip();
-              }}
-            />
-            <UU5.Bricks.Button content="Update" onClick={() => handleOpenDetailsModal(data)} />
+          <UU5.Bricks.Card colorSchema="light-blue" className={Css.main()} bgStyle="transparent">
+            <UU5.Bricks.Text className={Css.header()} content={`Name ${data?.data?.name}`} />
+            <UU5.Bricks.Text className={Css.text()} content={`Date of Birth: ${data?.data?.dateOfBirth}`} />
+            <UU5.Bricks.Text className={Css.text()} content={`Passport number: ${data?.data?.passNum}`} />
+            <div className={Css.footer()}>
+              <UU5.Bricks.Button
+                onClick={() => {
+                  setRemoveId(data.data.id);
+                  removeTrip();
+                }}
+                bgStyle="outline"
+              >
+                <UU5.Bricks.Icon className={Css.icon()} icon="fa-user-times" />
+              </UU5.Bricks.Button>
+
+              <UU5.Bricks.Button bgStyle="outline" onClick={() => handleOpenDetailsModal(data)}>
+                <UU5.Bricks.Icon className={Css.icon()} icon="fa-magic" />
+              </UU5.Bricks.Button>
+            </div>
           </UU5.Bricks.Card>
         ) : null}
       </div>

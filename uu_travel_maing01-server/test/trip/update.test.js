@@ -38,7 +38,7 @@ const helpingDtoIn = {
   category: 1,
 };
 
-describe("Testing participant create command...", () => {
+describe("Testing trip/update command...", () => {
   test("HDS", async () => {
     expect.assertions(3);
     let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);

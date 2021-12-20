@@ -1,5 +1,10 @@
 const { TestHelper } = require("uu_appg01_server-test");
 const CMD = "trip/create";
+const APP_CODE = "uu-travel-main";
+
+function appCodePrefix(param) {
+  return `${APP_CODE}/${param}`;
+}
 
 beforeAll(async () => {
   await TestHelper.setup();
@@ -38,7 +43,7 @@ const helpingDtoIn = {
   category: 1,
 };
 
-describe("Testing participant create command...", () => {
+describe("Testing trip create command...", () => {
   test("HDS", async () => {
     expect.assertions(3);
     let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
@@ -46,5 +51,132 @@ describe("Testing participant create command...", () => {
     expect(result.status).toEqual(200);
     expect(result.data.uuAppErrorMap).toBeDefined();
     expect(result.data.participantIdList).toBeDefined();
+  });
+
+  test("Invalid dtoIn", async () => {
+    let expectedWarning = {
+      code: `${CMD}/invalidDtoIn`,
+      message: "DtoIn contains unsupported keys.",
+      unsupportedKeys: ["extraAttribute"],
+    };
+    expect.assertions(3);
+    try {
+      await TestHelper.executePostCommand("trip/create", { field: "unsupported" });
+    } catch (e) {
+      expect(e.status).toEqual(400);
+      expect(e.message).toEqual("DtoIn is not valid.");
+      expect(e.code).toEqual(appCodePrefix(expectedWarning.code));
+    }
+  });
+
+  test("DtoIn contains unsupported keys.", async () => {
+    let expectedWarning = {
+      code: `${CMD}/unsupportedKeys`,
+      message: "DtoIn contains unsupported keys.",
+      unsupportedKeys: ["extraAttribute"],
+    };
+    expect.assertions(2);
+
+    let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
+    let response = await TestHelper.executePostCommand("trip/create", {
+      ...dtoIn,
+      locationId: helpingVar.id,
+      extraAttribute: "extraAttribute",
+    });
+    let warning = response.uuAppErrorMap[appCodePrefix(expectedWarning.code)];
+    expect(warning).toBeDefined();
+    expect(warning.type).toEqual("warning");
+  });
+
+  test("Location with a given id doesn't exist", async () => {
+    let expectedError = {
+      code: `${CMD}/LocationDoesNotExist`,
+      message: "DtoIn contains unsupported keys.",
+      unsupportedKeys: ["extraAttribute"],
+    };
+
+    let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
+    await TestHelper.executePostCommand("location/delete", { id: helpingVar.id });
+    try {
+      await TestHelper.executePostCommand("trip/create", {
+        ...dtoIn,
+        locationId: helpingVar.id,
+      });
+    } catch (e) {
+      let error = e.dtoOut.uuAppErrorMap[appCodePrefix(expectedError.code)];
+      expect.assertions(2);
+      expect(error).toBeDefined();
+      expect(e.response.status).toEqual(400);
+    }
+  });
+
+  test("Participant doesn't exist warning", async () => {
+    let expectedWarning = {
+      code: `${CMD}/ParticipantDoesNotExist`,
+    };
+
+    let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
+    let result = await TestHelper.executePostCommand("trip/create", {
+      ...dtoIn,
+      locationId: helpingVar.id,
+      participantIdList: ["61bc87972c98c03cccce8c91"],
+    });
+
+    let warning = result.uuAppErrorMap[appCodePrefix(expectedWarning.code)];
+    expect.assertions(3);
+    expect(warning).toBeDefined();
+    expect(warning.type).toEqual("warning");
+    expect(result.status).toEqual(200);
+  });
+
+  test("Test - TravelIsNotInCorrectState", async () => {
+    const filter = `{awid: "${TestHelper.awid}"}`;
+    const params = `{$set: ${JSON.stringify({ state: `vfr` })}}`;
+    const restore = `{$set: ${JSON.stringify({ state: `active` })}}`;
+    let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
+
+    await TestHelper.executeDbScript(`db.travelMain.findOneAndUpdate(${filter}, ${params});`);
+    let expectedError = {
+      code: `${CMD}/TravelIsNotInCorrectState`,
+      message: "Travel is not in correct state.",
+      paramMap: { awid: TestHelper.awid, currentState: "vfr", expectedState: "active" },
+    };
+    expect.assertions(3);
+    try {
+      await TestHelper.executePostCommand("trip/create", {
+        ...dtoIn,
+        locationId: helpingVar.id,
+      });
+    } catch (error) {
+      expect(error.status).toEqual(400);
+      expect(error.message).toEqual(expectedError.message);
+      if (error.paramMap && expectedError.paramMap) {
+        expect(error.paramMap).toEqual(expectedError.paramMap);
+      }
+    }
+    await TestHelper.executeDbScript(`db.travelMain.findOneAndUpdate(${filter}, ${restore});`);
+  });
+
+  test("TravelInstanceDoesNotExist", async () => {
+    let filter = `{awid: "${TestHelper.awid}"}`;
+    let params = `{$set: ${JSON.stringify({ awid: 77777777777777 })}}`;
+    let helpingVar = await TestHelper.executePostCommand("location/create", helpingDtoIn);
+
+    await TestHelper.executeDbScript(`db.travelMain.findOneAndUpdate(${filter}, ${params});`);
+    let expectedError = {
+      code: "TravelDoesNotExist",
+      message: "Travel does not exist.",
+    };
+
+    try {
+      await TestHelper.executePostCommand("trip/create", {
+        ...dtoIn,
+        locationId: helpingVar.id,
+      });
+    } catch (error) {
+      expect(error.status).toEqual(400);
+      expect(error.message).toEqual(expectedError.message);
+    }
+    expect.assertions(2);
   });
 });

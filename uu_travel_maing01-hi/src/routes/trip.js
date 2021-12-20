@@ -17,6 +17,16 @@ const STATICS = {
   displayName: Config.TAG + "Trip",
   //@@viewOff:static
 };
+const CLASS_NAMES = {
+  centeredHeader: () => Config.Css.css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  `,
+
+};
+
 
 export const Trip = createVisualComponent({
   ...STATICS,
@@ -54,7 +64,7 @@ export const Trip = createVisualComponent({
 
     if (!id) {
       return (
-        <div>
+        <div className={CLASS_NAMES.centeredHeader()}>
           <h1>Select an existing trip</h1>
         </div>
       );

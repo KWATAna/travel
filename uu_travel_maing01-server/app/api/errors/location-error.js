@@ -223,6 +223,24 @@ const List = {
     }
   },
 };
+const GetImageData = {
+  UC_CODE: `${LOCATION_ERROR_PREFIX}getImageData/`,
+
+  InvalidDtoIn: class extends TravelMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${GetImageData.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  LocationImageDoesNotExist: class extends TravelMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${GetImageData.UC_CODE}locationImageDoesNotExist`;
+      this.message = "Object locationImage does not exist.";
+    }
+  },
+};
 
 module.exports = {
   List,
@@ -231,4 +249,5 @@ module.exports = {
   Update,
   Get,
   Create,
+  GetImageData,
 };
