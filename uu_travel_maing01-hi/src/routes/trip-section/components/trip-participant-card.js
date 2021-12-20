@@ -21,6 +21,7 @@ export const ParticipantCard = createVisualComponent({
   propTypes: {
     data: UU5.PropTypes.object,
     handleOpenDetailsModal: UU5.PropTypes.func,
+    setRemoveId: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 
@@ -69,11 +70,11 @@ export const ParticipantCard = createVisualComponent({
                 }}
                 bgStyle="outline"
               >
-                <UU5.Bricks.Icon className={Css.icon()} icon="fa-user-times" />
+                <UU5.Bricks.Icon className={Css.icon()} icon={Config.removeParticipant} />
               </UU5.Bricks.Button>
 
               <UU5.Bricks.Button bgStyle="outline" onClick={() => handleOpenDetailsModal(data)}>
-                <UU5.Bricks.Icon className={Css.icon()} icon="fa-magic" />
+                <UU5.Bricks.Icon className={Css.icon()} icon={Config.editButton} />
               </UU5.Bricks.Button>
             </div>
           </UU5.Bricks.Card>

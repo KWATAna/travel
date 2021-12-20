@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState } from "uu5g04-hooks";
+import { createVisualComponent, useState, useLsiValues } from "uu5g04-hooks";
 import Config from "../config/config";
 import Lsi from "./participant-form-lsi";
 //@@viewOff:imports
@@ -28,7 +28,7 @@ const ParticipantFormUpdate = createVisualComponent({
 
     //@@viewOn:hooks
     const [isLoading, setLoading] = useState(false);
-
+    const inputLsi = useLsiValues(Lsi);
     //@@viewOff:hooks
     //@@viewOn:private
     async function handleUpdate(formData) {
@@ -69,14 +69,27 @@ const ParticipantFormUpdate = createVisualComponent({
         progressIndicator={<UU5.Bricks.Loading />}
         disabled={isLoading}
       >
-        <UU5.Forms.Text required label="name" name="name" value={data?.data?.name} />
-        <UU5.Forms.Text required label="passExpiry" name="passExpiry" value={data?.data?.passExpiry} />
-        <UU5.Forms.Text required label="passNum" name="passNum" value={data?.data?.passNum} />
-        <UU5.Forms.Text required label="state" name="state" value={data?.data?.state} />
-        <UU5.Forms.Text required label="telNumber" name="telNumber" value={data?.data?.telNumber} />
+        <UU5.Forms.Text
+          pattern="[A-Za-z]{3}"
+          patternMessage="Must contain at least 3 alphabet characters"
+          required
+          label={inputLsi.partName}
+          name="name"
+          value={data?.data?.name}
+        />
+        <UU5.Forms.DatePicker
+          label={inputLsi.passExp}
+          name="passExpiry"
+          valueType="iso"
+          value={data?.data?.passExpiry}
+          size="l"
+        />
+        <UU5.Forms.Text required label={inputLsi.passNum} name="passNum" value={data?.data?.passNum} />
+        <UU5.Forms.Text required disabled label={inputLsi.partState} name="state" value={data?.data?.state} />
+        <UU5.Forms.Text required label={inputLsi.phoneNum} name="telNumber" value={data?.data?.telNumber} />
 
         <UU5.Forms.DatePicker
-          label="dateOfBirth"
+          label={inputLsi.dOB}
           name="dateOfBirth"
           valueType="iso"
           value={data?.data?.dateOfBirth}

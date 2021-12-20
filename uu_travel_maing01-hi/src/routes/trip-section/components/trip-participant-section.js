@@ -27,6 +27,7 @@ export const TripParticipants = createVisualComponent({
   //@@viewOn:propTypes
   propTypes: {
     data: UU5.PropTypes.object,
+    params: UU5.PropTypes.string,
   },
   //@@viewOff:propTypes
 
@@ -73,6 +74,15 @@ export const TripParticipants = createVisualComponent({
       const upPartList = [...trip.participantIdList, values.id];
       await Calls.tripUpdate({ id: params, participantIdList: upPartList });
     }
+    const SORTERS = [
+      {
+        key: "dateOfBirth",
+        label: "dateOfBirth",
+        sorterFn: (a, b) => {
+          return new Date(a.data.dateOfBirth) - new Date(b.data.dateOfBirth);
+        },
+      },
+    ];
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -80,7 +90,7 @@ export const TripParticipants = createVisualComponent({
     //@@viewOn:render
     const currentNestingLevel = UU5.Utils.NestingLevel.getNestingLevel(props, STATICS);
     return currentNestingLevel ? (
-      <Uu5Tiles.ControllerProvider data={data}>
+      <Uu5Tiles.ControllerProvider sorters={SORTERS} data={data}>
         <UU5.Forms.Form onSave={UpdateTripParticipant}>
           {participants && (
             <UU5.Forms.Select
@@ -97,6 +107,8 @@ export const TripParticipants = createVisualComponent({
           )}
           <UU5.Forms.Controls />
         </UU5.Forms.Form>
+        <Uu5Tiles.InfoBar />
+
         <Uu5Tiles.Grid tileSpacing={8} rowSpacing={2} tileMaxWidth={400}>
           <ParticipantCard setRemoveId={setRemoveId} />
         </Uu5Tiles.Grid>

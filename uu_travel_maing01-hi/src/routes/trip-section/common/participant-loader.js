@@ -10,7 +10,7 @@ import Config from "../../config/config";
 
 const STATICS = {
   //@@viewOn:statics
-  displayName: Config.TAG + "TripParticipantLoader",
+  displayName: Config.TAG + "ParticipantLoader",
   //@@viewOff:statics
 };
 

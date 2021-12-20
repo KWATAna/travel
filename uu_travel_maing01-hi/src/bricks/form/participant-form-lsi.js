@@ -29,6 +29,38 @@ const Lsi = {
   wrongDescLength: {
     en: "Value should be not longer then 5000 symbols.",
   },
+  name: {
+    en: "Name",
+    cs: "Název",
+  },
+  text: {
+    en: "Text",
+    cs: "Obsah",
+  },
+  passNum: {
+    en: "Pass number",
+    cs: "Číslo pasu",
+  },
+  phoneNum: {
+    en: "Phone number",
+    cs: "Telefonní číslo",
+  },
+  partState: {
+    en: "State",
+    cs: "Stát",
+  },
+  dOB: {
+    en: "Date of birth",
+    cs: "Datum narození",
+  },
+  passExp: {
+    en: "passport expiry date",
+    cs: "datum vypršení platnosti pasu",
+  },
+  partName: {
+    en: "Name",
+    cs: "Název",
+  },
 };
 
 //viewOn:exports

@@ -57,7 +57,6 @@ describe("Testing participant/list command...", () => {
     let response = await TestHelper.executeGetCommand("participant/list", {
       extraAttribute: "extraAttribute",
     });
-    console.log(response);
     let warning = response.uuAppErrorMap[appCodePrefix(expectedWarning.code)];
     expect(response.data.itemList).toBeDefined();
     expect(warning).toBeDefined();

@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import UU5 from "uu5g04";
-import { createVisualComponent, useState, useEffect } from "uu5g04-hooks";
+import { createVisualComponent, useState, useEffect, useLsiValues } from "uu5g04-hooks";
 import Config from "../config/config";
 import Calls from "../../calls";
 import Lsi from "./travel-form-lsi";
@@ -17,7 +17,12 @@ const UpdateForm = createVisualComponent({
   ...STATICS,
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    isCreateForm: UU5.PropTypes.bool,
+    closeModal: UU5.PropTypes.func,
+    data: UU5.PropTypes.object,
+    handlerMap: UU5.PropTypes.object,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -30,6 +35,7 @@ const UpdateForm = createVisualComponent({
     //@@viewOn:hooks
     const [isLoading, setLoading] = useState(false);
     const [locations, setLocations] = useState();
+    const inputLsi = useLsiValues(Lsi);
 
     useEffect(() => {
       let fetchLocations = async () => {
@@ -89,7 +95,7 @@ const UpdateForm = createVisualComponent({
           required
           pattern="[A-Za-z]{3}"
           patternMessage="Must contain at least 3 alphabet characters"
-          label="name"
+          label={inputLsi.name}
           name="name"
           value={data?.data?.name}
         />
@@ -97,7 +103,7 @@ const UpdateForm = createVisualComponent({
           required
           patternMessage="Must contain digits"
           pattern="^[0-9]*$"
-          label="price"
+          label={inputLsi.price}
           name="price"
           value={data?.data?.price}
         />
@@ -105,20 +111,20 @@ const UpdateForm = createVisualComponent({
           required
           patternMessage="Must contain digits"
           pattern="^[0-9]*$"
-          label="capacity"
+          label={inputLsi.capacity}
           name="capacity"
           value={data?.data?.capacity}
         />
         <UU5.Forms.DatePicker
           required
-          label="startingDate"
+          label={inputLsi.startDate}
           name="startingDate"
           valueType="iso"
           value={data?.data?.startingDate}
           size="l"
         />
         {isCreateForm && (
-          <UU5.Forms.Select name="locationId" label="Select location">
+          <UU5.Forms.Select name="locationId" label={inputLsi.location}>
             {locations &&
               locations.map((item) => {
                 return <UU5.Forms.Select.Option key={item.id} content={item.city} value={item.id} />;

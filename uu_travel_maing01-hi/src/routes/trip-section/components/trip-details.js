@@ -30,6 +30,10 @@ export const TripDetails = createVisualComponent({
   propTypes: {
     data: UU5.PropTypes.object,
     handleOpenDetailsModal: UU5.PropTypes.func,
+    getConfirmRef: UU5.PropTypes.func,
+    open: UU5.PropTypes.func,
+    showAlert: UU5.PropTypes.func,
+    close: UU5.PropTypes.func,
   },
   //@@viewOff:propTypes
 

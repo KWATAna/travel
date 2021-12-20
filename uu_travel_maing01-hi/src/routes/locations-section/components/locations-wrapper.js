@@ -16,7 +16,7 @@ const STATICS = {
 };
 
 export const LocationsWrapper = createVisualComponent({
-  ...STATICS,   
+  ...STATICS,
 
   //@@viewOn:propTypes
   propTypes: {

@@ -28,6 +28,26 @@ const Lsi = {
   wrongDescLength: {
     en: "Value should be not longer then 5000 symbols.",
   },
+  name: {
+    en: "Name",
+    cs: "Název",
+  },
+  capacity: {
+    en: "capacity",
+    cs: "množství",
+  },
+  startDate: {
+    en: "Starting date",
+    cs: "Počáteční datum",
+  },
+  price: {
+    en: "Price",
+    cs: "Cena",
+  },
+  location: {
+    en: "Select location",
+    cs: "Vyberte umístění",
+  },
 };
 
 //viewOn:exports

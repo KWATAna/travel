@@ -52,7 +52,6 @@ export const Trip = createVisualComponent({
       });
     }
     let [id, setId] = useState(props?.params?.id || false);
-
     //@@viewOff:hooks
     //@@viewOn:private
     //@@viewOff:private
